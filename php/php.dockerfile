@@ -12,7 +12,7 @@ ENV LCC_ALL en_US.UTF-8
 
 RUN apt-get update \
   && apt install -y wget \
-  && apt install gcc \
+  && apt install -y gcc \
   && cd /tmp \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz\
   && tar -xzf php.tar.gz \
