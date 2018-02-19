@@ -16,7 +16,7 @@ RUN apt-get update \
   && cd /usr/include \
   && ln -s x86_64-linux-gnu/curl curl \
   && apt install -y libcurl4-gnutls-dev \
-  && apt install -y libjpeg-turbo8-dev \
+  && apt install -y libjpeg-turbo8 \
   && apt install -y openssl libssl-dev pkg-config\
   && apt install -y libxml2-dev \
   && apt install -y gcc \
