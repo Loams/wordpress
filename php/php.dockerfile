@@ -13,6 +13,7 @@ ENV LCC_ALL en_US.UTF-8
 RUN apt-get update \
   && apt install -y wget \
   && apt install -y curl \
+  && apt install -y libgd-dev \
   && cd /usr/include \
   && ln -s x86_64-linux-gnu/curl curl \
   && apt install -y libcurl4-gnutls-dev \
