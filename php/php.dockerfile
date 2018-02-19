@@ -11,7 +11,7 @@ ENV LANGUAGE en_US:en
 ENV LCC_ALL en_US.UTF-8
 
 RUN apt-get update \
-  && apt install curl
+  && apt install curl \
   && cd /tmp \
   && curl http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror \
   && tar -xzf *.tar.gz \
