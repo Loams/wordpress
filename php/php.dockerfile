@@ -7,19 +7,20 @@ ENV LANGUAGE en_US:en
 ENV LCC_ALL en_US.UTF-8
 
 RUN apt-get update \
-  && apt-get install -y locales \
+  && apt install -y locales \
+  && apt install -y make \
   && locale-gen en_US.UTF-8 \
   && apt install -y libxslt1.1 libxslt1-dev \
   && apt install -y wget \
   && apt install -y curl \
   && apt install -y libgd-dev \
   && apt install -y g++ \
-  && cd /usr/include \
-  && ln -s x86_64-linux-gnu/curl curl \
   && apt install -y libcurl4-gnutls-dev \
   && apt install -y openssl libssl-dev pkg-config\
   && apt install -y libxml2-dev \
   && apt install -y gcc \
+  && cd /usr/include \
+  && ln -s x86_64-linux-gnu/curl curl \
   && cd /tmp \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz\
   && tar -xzf php.tar.gz \
