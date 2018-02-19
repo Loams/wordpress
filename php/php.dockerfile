@@ -2,15 +2,14 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
-RUN apt-get update \
-  && apt-get install -y locales \
-  && locale-gen en_US.UTF-8
-
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LCC_ALL en_US.UTF-8
 
 RUN apt-get update \
+  && apt-get install -y locales \
+  && locale-gen en_US.UTF-8 \
+  && apt install -y libxslt1.1 libxslt1-dev \
   && apt install -y wget \
   && apt install -y curl \
   && apt install -y libgd-dev \
