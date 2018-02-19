@@ -12,6 +12,7 @@ ENV LCC_ALL en_US.UTF-8
 
 RUN apt-get update \
   && apt install -y wget \
+  && apt install -y curl \
   && apt install -y openssl libssl-dev pkg-config\
   && apt install -y libxml2-dev \
   && apt install -y gcc \
