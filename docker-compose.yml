@@ -1,7 +1,9 @@
-php:
-  build:
-    context: ./
-    dockerfile: php.dockerfile
-  working_dir: /var/www
-  volumes:
-    - /var/www:/var/www
+version: '2'
+services:
+  php:
+    build:
+      context: ./php
+      dockerfile: php.dockerfile
+    working_dir: /var/www
+    volumes:
+      - /var/www:/var/www
