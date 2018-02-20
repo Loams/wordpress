@@ -10,8 +10,6 @@ services:
       - /var/www:/var/www/app
   db:
     image: mariadb:10.1
-    ports:
-      -
     volumes:
       - /var/www:/var/www/app
       - /my/own/datadir:/var/lib/mysq
