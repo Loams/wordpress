@@ -40,7 +40,7 @@ RUN cd /tmp \
   && make depend \
   && make \
   && make install \
-  && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu\
+  && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu \
 
 ## compile old curl
 RUN pwd
