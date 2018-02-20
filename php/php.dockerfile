@@ -75,12 +75,12 @@ RUN mkdir -p /opt/php-5.4 \
   && cd php-5.4.45 \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/opt/php-5.4 '--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl'  '--with-kerberos'  '--with-libdir=lib/x86_64-linux-gnu' '--enable-fpm' '--with-fpm-user=www-data' '--with-fpm-group=www-data' '--with-mysql-sock' \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
-  && make install
-#  && cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini \
-#  && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf \
+  && make install \
+  && cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini \
+  && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf
 #  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
-
-#COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
+# COPY ./config/www.conf /opt/php-5.4/etc/php-fpm.d/www.conf
+COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
 
 #RUN systemctl enable php-fpm \
  #   && systemctl daemon-reload
