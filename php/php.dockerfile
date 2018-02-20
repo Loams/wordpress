@@ -7,7 +7,7 @@ ENV PHP_RUN_DIR=/run/php \
     PHP_DATA_DIR=/var/lib/php5
 
 RUN \
-    buildDeps='software-properties-common python-software-properties' \
+    buildDeps='software-properties-common' \
     && apt-get update \
     # Install common libraries
     && apt-get install --no-install-recommends -y $buildDeps \
