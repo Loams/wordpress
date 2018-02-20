@@ -40,10 +40,10 @@ RUN cd /tmp \
   && make depend \
   && make \
   && make install \
-  && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu \
+  && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu
 
 ## compile old curl
-RUN pwd
+
 RUN cd /tmp \
     && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
     && tar -xzf curl-7.26.0.tar.gz \
@@ -57,7 +57,7 @@ RUN cd /tmp \
     && make install
 
 ## old libc-client
-RUN pwd
+
 RUN cd /tmp \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
@@ -71,7 +71,7 @@ RUN cd /tmp \
     && cp c-client/*.c lib/ \
     && cp c-client/*.h include/ \
     && cp c-client/c-client.a lib/libc-client.a \
-    && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a \
+    && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a
 
 RUN  wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
   && tar -xzf php.tar.gz \
