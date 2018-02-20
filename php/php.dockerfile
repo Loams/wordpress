@@ -4,7 +4,6 @@ MAINTAINER Stephane Mullings
 
 RUN apt-get update \
   && apt install -y make \
-  && locale-gen en_US.UTF-8 \
   && apt install -y build-essential \
                     checkinstall \
                     zip \
