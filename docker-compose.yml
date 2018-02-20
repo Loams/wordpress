@@ -8,3 +8,20 @@ services:
     volumes:
       - /var/www:/var/www
     tty: true
+  #db:
+  #  build:
+  #    context: ./mariadb
+  #    dockerfile: mariadb.dockerfile
+  #  working_dir: /root/docker
+  #  volumes:
+  #    - /root/docker:/root/docker/lib/data
+  #  tty: true
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: nginx.dockerfile
+    volumes:
+      - /var/www:/var/www
+    links:
+     # - db
+      - php
