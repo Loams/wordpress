@@ -12,6 +12,7 @@ RUN apt-get update \
                     checkinstall \
                     zip \
                     autoconf \
+                    sed \
   && apt install -y libfcgi-dev \
                     libfcgi0ldbl \
                     libmcrypt-dev \
@@ -72,8 +73,6 @@ RUN  cd /opt \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php-5.4.45 '--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl'  '--with-kerberos'  '--with-libdir=lib/x86_64-linux-gnu' '--enable-fpm' '--with-fpm-user=www-data' '--with-fpm-group=www-data' '--with-mysql-sock' \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
-
-EXPOSE 9000
 
 COPY ./config/php-fpm.conf ${PHP_CONF_DIR}/fpm/php-fpm.conf
 COPY ./config/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
