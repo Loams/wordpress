@@ -1,12 +1,6 @@
 FROM debian:stretch
 MAINTAINER Stephane Mullings
 
-ENV OS_LOCALE="en_US.UTF-8"
-RUN locale-gen ${OS_LOCALE}
-ENV LANG=${OS_LOCALE} \
-    LANGUAGE=en_US:en \
-    LC_ALL=${OS_LOCALE}
-
 ENV PHP_RUN_DIR=/run/php \
     PHP_LOG_DIR=/var/log/php \
     PHP_CONF_DIR=/etc/php5 \
