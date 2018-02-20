@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: docker pull romeoz/docker-phpfpm:5.4
+    image: romeoz/docker-phpfpm:5.4
     ports:
       - "8080:80"
     links:
