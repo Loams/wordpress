@@ -54,7 +54,7 @@ RUN cd /tmp \
   && cd curl \
   && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath-link=/usr/local/openssl/lib \
   && ./configure \
-    --with-ssl=/usr/local/openssl \
+    --with-ssl=/usr/local/openssl/lib \
     --with-zlib \
     --prefix=/usr/local/curl \
   && make \
