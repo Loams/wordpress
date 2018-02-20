@@ -77,11 +77,12 @@ RUN mkdir -p /opt/php-5.4 \
   && make install \
   && cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini \
   && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf \
-  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
+#  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
 
-COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
-RUN systemctl enable php-fpm \
-    && systemctl daemon-reload
+#COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
+
+#RUN systemctl enable php-fpm \
+ #   && systemctl daemon-reload
 
 WORKDIR /var/www
 
@@ -90,4 +91,4 @@ EXPOSE 9000
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
 
-CMD ['php-fpm']
+#CMD ['php-fpm']
