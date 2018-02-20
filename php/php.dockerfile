@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:whezzy
 MAINTAINER Stephane Mullings
 
 ENV PHP_RUN_DIR=/run/php \
