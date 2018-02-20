@@ -74,7 +74,7 @@ RUN  cd /opt \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
-COPY ./config/php-fpm.conf ${PHP_CONF_DIR}/fpm/php-fpm.conf
+COPY ./config/php-fpm.conf /usr/local/php-5.4.45/etc/php-fpm.conf
 COPY ./config/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
 
 WORKDIR /var/www
@@ -83,4 +83,4 @@ EXPOSE 9000
 
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
-
+CMD ["/usr/local/php-5.4.45/sbin/php-fpm"]
