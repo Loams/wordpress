@@ -2,6 +2,11 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
+ENV PHP_RUN_DIR=/run/php \
+    PHP_LOG_DIR=/var/log/php \
+    PHP_CONF_DIR=/etc/php5 \
+    PHP_DATA_DIR=/var/lib/php5
+
 RUN apt-get update \
   && apt install -y build-essential \
                     checkinstall \
@@ -69,3 +74,18 @@ RUN  cd /opt \
   && make install
 
 EXPOSE 9000
+
+COPY ./config/php-fpm.conf ${PHP_CONF_DIR}/fpm/php-fpm.conf
+COPY ./config/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
+
+RUN sed -i "s~PHP_RUN_DIR~${PHP_RUN_DIR}~g" ${PHP_CONF_DIR}/fpm/php-fpm.conf \
+    && sed -i "s~PHP_LOG_DIR~${PHP_LOG_DIR}~g" ${PHP_CONF_DIR}/fpm/php-fpm.conf \
+    && chown www-data:www-data ${PHP_DATA_DIR} -Rf
+
+WORKDIR /var/www
+
+EXPOSE 9000
+
+# PHP_DATA_DIR store sessions
+VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
+CMD ["/usr/local/php-5.4.45/sbin/php-fpm"]
