@@ -34,7 +34,7 @@ RUN apt-get update \
 
 RUN cd /tmp \
   && wget https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz \
-  && tar xzf openssl-1.0.1u.tar.gz \
+  && tar -xzf openssl-1.0.1u.tar.gz \
   && cd openssl-1.0.1u \
   && ./config shared --openssldir=/usr/local/openssl/ enable-ec_nistp_64_gcc_128 \
   && make depend \
@@ -45,7 +45,7 @@ RUN cd /tmp \
 ## compile old curl
 RUN cd /tmp \
     && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
-    && tar xzf curl-7.26.0.tar.gz \
+    && tar -xzf curl-7.26.0.tar.gz \
     && cd curl-7.26.0 \
     && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib \
     && ./configure \
@@ -56,7 +56,8 @@ RUN cd /tmp \
     && make install
 
 ## old libc-client
-RUN wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
+RUN cd /tmp \
+    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
     && dpkg-source -x uw-imap_2007f\~dfsg-2.dsc imap-2007f \
