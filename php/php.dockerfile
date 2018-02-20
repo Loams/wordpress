@@ -67,7 +67,7 @@ RUN cd /opt \
   && make install
 
 RUN mkdir -p /opt/php-5.4 \
-  && mkdir /usr/local/src/php5.4-build \
+  && mkdir -p /usr/local/src/php5.4-build \
   && cd /user/local/src/php5.4-build \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php-5.4.45.tar.gz \
   && tar xzf php-5.4.45.tar.gz \
@@ -79,9 +79,15 @@ RUN mkdir -p /opt/php-5.4 \
   && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf \
   && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
 
+COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
+RUN systemctl enable php-fpm \
+    && systemctl daemon-reload
+
 WORKDIR /var/www
 
 EXPOSE 9000
 
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
+
+CMD ['php-fpm']
