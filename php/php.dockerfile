@@ -2,9 +2,9 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
-ENV PHP_RUN_DIR=/run/php \
+ENV PHP_RUN_DIR=/opt/php-5.4/var/run \
     PHP_LOG_DIR=/var/log/php \
-    PHP_CONF_DIR=/etc/php5 \
+    PHP_CONF_DIR=/opt/php-5.4/etc \
     PHP_DATA_DIR=/var/lib/php5
 
 RUN apt-get update \
