@@ -23,9 +23,9 @@ RUN \
     && apt-get autoremove -y && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./configs/php-fpm.conf ${PHP_CONF_DIR}/fpm/php-fpm.conf
-COPY ./configs/www.conf ${PHP_CONF_DIR}/fpm/pool.d/www.conf
-COPY ./configs/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
+COPY ./config/php-fpm.conf ${PHP_CONF_DIR}/fpm/php-fpm.conf
+COPY ./config/www.conf ${PHP_CONF_DIR}/fpm/pool.d/www.conf
+COPY ./config/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
 
 RUN sed -i "s~PHP_RUN_DIR~${PHP_RUN_DIR}~g" ${PHP_CONF_DIR}/fpm/php-fpm.conf \
     && sed -i "s~PHP_LOG_DIR~${PHP_LOG_DIR}~g" ${PHP_CONF_DIR}/fpm/php-fpm.conf \
