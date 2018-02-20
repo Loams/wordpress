@@ -48,7 +48,7 @@ RUN cd /tmp \
   && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
   && tar -xzf curl-7.26.0.tar.gz \
   && chown -R root:root curl-7.26.0 \
-  && mv curl-7.26.0 curl
+  && mv curl-7.26.0 curl \
   && ls -al \
   && cd curl \
   && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib \
