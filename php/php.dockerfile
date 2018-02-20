@@ -2,30 +2,86 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
-RUN echo "deb-src http://ftp.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list \
-  && apt-get update \
-  && apt install -y locales \
+RUN apt-get update \
   && apt install -y make \
   && locale-gen en_US.UTF-8 \
-  && apt build-dep -y php5 \
-  && apt install -y libxslt1.1 libxslt1-dev \
-  && apt install -y wget \
-  && apt install -y libfcgi-dev libfcgi0ldbl libjpeg62-dbg libmcrypt-dev \
-  && apt install -y curl \
-  && apt install -y libgd-dev \
-  && apt install -y g++ \
-  && apt install -y libcurl4-gnutls-dev \
-  && apt install -y openssl libssl-dev pkg-config\
+  && apt install -y build-essential \
+                    checkinstall \
+                    zip \
+                    autoconf \
+  && apt install -y libfcgi-dev \
+                    libfcgi0ldbl \
+                    libmcrypt-dev \
+                    libssl-dev \
+                    libc-client2007e-dev \
+                    libkrb5-dev \
+                    libcurl4-openssl-dev \
+
   && apt install -y libxml2-dev \
+                    libcurl4-openssl-dev \
+                    libpcre3-dev \
+                    libbz2-dev \
+                    libjpeg-dev \
+                    libpng-dev \
+                    libfreetype6-dev \
+                    libmcrypt-dev \
+                    libmhash-dev \
+                    freetds-dev \
+                    libmariadbclient-dev-compat \
+                    unixodbc-dev \
+                    libxslt1-dev \
+  && apt install -y wget \
+
+##compile old openssl
+
+RUN cd /opt/ \
+  && wget https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz \
+  && tar xzf openssl-1.0.1u.tar.gz \
+  && cd openssl-1.0.1u \
+  && ./config shared --openssldir=/usr/local/openssl/ enable-ec_nistp_64_gcc_128 \
+  && make depend \
+  && make \
+  && make install \
+  && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu\
+
+## compile old curl
+RUN cd /opt/ \
+    && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
+    && tar xzf curl-7.26.0.tar.gz \
+    && cd curl-7.26.0 \
+    && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib
+    && ./configure \
+      --with-ssl=/usr/local/openssl \
+      --with-zlib \
+      --prefix=/usr/local/curl \
+    && make \
+    && make install \
+
+## old libc-client
+RUN cd /tmp/ \
+    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
+    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
+    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
+    && dpkg-source -x uw-imap_2007f\~dfsg-2.dsc imap-2007f \
+    && mv imap-2007f /usr/local/ \
+    && cd /usr/local/imap-2007f/ \
+    && touch {ipv6,lnxok} \
+    &&&= make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
+    && mkdir lib include \
+    && cp c-client/*.c lib/ \
+    && cp c-client/*.h include/ \
+    && cp c-client/c-client.a lib/libc-client.a \
+    && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a \
+
+RUN apt install -y g++ \
   && apt install -y gcc \
-  && cd /usr/include \
-  && ln -s x86_64-linux-gnu/curl curl \
   && cd /tmp \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz\
   && tar -xzf php.tar.gz \
   && cd php-* \
-#  && ./configure --prefix=/usr/local/php --enable-mbstring --with-curl --with-openssl --with-xmlrpc --enable-soap --enable-zip --with-gd --with-jpeg-dir --with-png-dir --with-mysql --enable-embedded-mysqli --with-freetype-dir --with-xsl --with-mysql --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --with-mysql-sock --enable-intl \
-  && ./configure \
+  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php'--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl' '--with-imap=/usr/local/imap-2007f' '--with-kerberos' '--with-imap-ssl' '--with-libdir=lib/x86_64-linux-gnu' \
+  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
+ # && ./configure \
      --prefix=/usr/local/php \
      --with-zlib-dir \
      --with-freetype-dir \
@@ -77,7 +133,7 @@ RUN echo "deb-src http://ftp.debian.org/debian wheezy main contrib non-free" > /
      --with-fpm-user=www-data \
      --with-fpm-group=www-data \
      --with-mysql-sock \
-  && make \
+  #&& make \
   && make install
 
   ENV LANG en_US.UTF-8
