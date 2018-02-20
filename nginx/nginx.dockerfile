@@ -8,7 +8,7 @@ RUN	\
 	buildDeps='software-properties-common python-software-properties' \
 	&& apt-get update \
 	&& apt-get install --no-install-recommends -y $buildDeps \
-	&& apt-get install -y nginx=1.10.* \
+	&& apt-get install -y nginx \
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
 	&& apt-get install -y supervisor && mkdir -p /var/log/supervisor \
