@@ -2,15 +2,12 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LCC_ALL en_US.UTF-8
-
-RUN apt-get update \
+RUN echo "deb-src http://ftp.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list \
+  && apt-get update \
   && apt install -y locales \
   && apt install -y make \
   && locale-gen en_US.UTF-8 \
-  && apt build-dep php5 \
+  && apt build-dep -y php5 \
   && apt install -y libxslt1.1 libxslt1-dev \
   && apt install -y wget \
   && apt install -y libfcgi-dev libfcgi0ldbl libjpeg62-dbg libmcrypt-dev \
@@ -82,6 +79,10 @@ RUN apt-get update \
      --with-mysql-sock \
   && make \
   && make install
+
+  ENV LANG en_US.UTF-8
+  ENV LANGUAGE en_US:en
+  ENV LCC_ALL en_US.UTF-8
 
 EXPOSE 9000
 CMD ["php-fpm"]
