@@ -3,7 +3,6 @@ FROM debian:stretch
 MAINTAINER Stephane Mullings
 
 RUN apt-get update \
-  && apt install -y make \
   && apt install -y build-essential \
                     checkinstall \
                     zip \
@@ -33,7 +32,7 @@ RUN apt-get update \
 
 ##compile old openssl
 
-RUN cd /tmp/ \
+RUN cd /tmp \
   && wget https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz \
   && tar xzf openssl-1.0.1u.tar.gz \
   && cd openssl-1.0.1u \
@@ -44,11 +43,12 @@ RUN cd /tmp/ \
   && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu\
 
 ## compile old curl
-RUN cd /tmp/ \
+RUN cd /tmp \
     && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
     && tar xzf curl-7.26.0.tar.gz \
     && cd curl-7.26.0 \
-    && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib ./configure \
+    && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib \
+    && ./configure \
       --with-ssl=/usr/local/openssl \
       --with-zlib \
       --prefix=/usr/local/curl \
@@ -56,7 +56,7 @@ RUN cd /tmp/ \
     && make install \
 
 ## old libc-client
-RUN cd /tmp/ \
+RUN cd /tmp \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
     && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
@@ -71,9 +71,7 @@ RUN cd /tmp/ \
     && cp c-client/c-client.a lib/libc-client.a \
     && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a \
 
-RUN apt install -y g++ \
-  && apt install -y gcc \
-  && cd /tmp \
+RUN cd /tmp \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
   && tar -xzf php.tar.gz \
   && cd php-* \
