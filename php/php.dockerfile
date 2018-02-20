@@ -11,8 +11,6 @@ RUN \
     && apt-get update \
     # Install common libraries
     && apt-get install --no-install-recommends -y $buildDeps \
-    && add-apt-repository -y ppa:ondrej/php5-oldstable \
-    && apt-get update \
     # Install PHP libraries
     && apt-get install -y curl php5-fpm php5-cli php-apc php5-intl php5-json php5-curl php5-mcrypt php5-gd php5-pgsql php5-mysql php-pear \
     && php5enmod mcrypt \
