@@ -68,7 +68,7 @@ RUN cd /opt \
 
 RUN mkdir -p /opt/php-5.4 \
   && mkdir -p /usr/local/src/php5.4-build \
-  && cd /user/local/src/php5.4-build \
+  && cd /usr/local/src/php5.4-build \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php-5.4.45.tar.gz \
   && tar xzf php-5.4.45.tar.gz \
   && cd php-5.4.45 \
