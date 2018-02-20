@@ -28,7 +28,7 @@ RUN apt-get update \
                     libmariadbclient-dev-compat \
                     unixodbc-dev \
                     libxslt1-dev \
-  && apt install -y wget \
+  && apt install -y wget
 
 ##compile old openssl
 
@@ -53,7 +53,7 @@ RUN cd /tmp \
       --with-zlib \
       --prefix=/usr/local/curl \
     && make \
-    && make install \
+    && make install
 
 ## old libc-client
 RUN wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
