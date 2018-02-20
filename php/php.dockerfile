@@ -77,7 +77,7 @@ RUN mkdir -p /opt/php-5.4 \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install \
   && cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini \
-  && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf \
+#  && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf \
 #  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
 
 #COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
