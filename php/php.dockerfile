@@ -62,25 +62,11 @@ RUN cd /tmp \
 
 ## old libc-client
 
-RUN cd /tmp \
-  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
-  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
-  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
-  && dpkg-source -x uw-imap_2007f\~dfsg-2.dsc imap-2007f \
-  && mv imap-2007f /usr/local/ \
-  && cd /usr/local/imap-2007f/ \
-  && touch {ipv6,lnxok} \
-  && make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
-  && mkdir lib include \
-  && cp c-client/*.c lib/ \
-  && cp c-client/*.h include/ \
-  && cp c-client/c-client.a lib/libc-client.a \
-  && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a
 
 RUN  wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
   && tar -xzf php.tar.gz \
   && cd php-* \
-  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php'--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl' '--with-imap=/usr/local/imap-2007f' '--with-kerberos' '--with-imap-ssl' '--with-libdir=lib/x86_64-linux-gnu' \
+  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php'--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl' '--with-imap=/usr/local/imap-2007f' '--with-kerberos' '--with-libdir=lib/x86_64-linux-gnu' \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
