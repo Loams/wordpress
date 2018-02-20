@@ -32,7 +32,7 @@ RUN apt-get update \
 
 ##compile old openssl
 
-RUN cd /tmp \
+RUN cd /opt \
   && wget https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz \
   && tar -xzf openssl-1.0.1u.tar.gz \
   && cd openssl-1.0.1u \
@@ -43,7 +43,7 @@ RUN cd /tmp \
   && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu
 
 ## compile old curl
-RUN cd /tmp \
+RUN cd /opt \
   && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
   && tar -xzf curl-7.26.0.tar.gz \
   && ls -al \
@@ -64,10 +64,12 @@ RUN cd /tmp \
 
 
 
-RUN  wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
-  && tar -xzf php.tar.gz \
-  && cd php-* \
-  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php'--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl'  '--with-kerberos'  '--with-libdir=lib/x86_64-linux-gnu' \
+RUN  cd /opt \
+  && env PHP_VER=5.4.45 \
+  && wget http://museum.php.net/php5/php-${PHP_VER}.tar.gz \
+  && tar xzf php-${PHP_VER}.tar.gz \
+  && cd php-${PHP_VER} \
+  && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php-${PHP_VER} '--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl'  '--with-kerberos'  '--with-libdir=lib/x86_64-linux-gnu' \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
