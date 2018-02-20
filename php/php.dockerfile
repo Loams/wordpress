@@ -81,9 +81,5 @@ RUN apt install -y g++ \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
-  ENV LANG en_US.UTF-8
-  ENV LANGUAGE en_US:en
-  ENV LCC_ALL en_US.UTF-8
-
 EXPOSE 9000
 CMD ["php-fpm"]
