@@ -67,6 +67,7 @@ RUN cd /opt \
   && make install
 
 RUN mkdir -p /opt/php-5.4 \
+  && mkdir -p /var/www \
   && mkdir -p /usr/local/src/php5.4-build \
   && cd /usr/local/src/php5.4-build \
   && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php-5.4.45.tar.gz \
