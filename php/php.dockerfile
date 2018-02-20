@@ -44,34 +44,34 @@ RUN cd /tmp \
 
 ## compile old curl
 RUN cd /tmp \
-    && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
-    && ls -al \
-    && tar -xzf curl-7.26.0.tar.gz \
-    && cd curl-7.26.0 \
-    && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib \
-    && ./configure \
-      --with-ssl=/usr/local/openssl \
-      --with-zlib \
-      --prefix=/usr/local/curl \
-    && make \
-    && make install
+  && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
+  && ls -al \
+  && tar -xzf curl-7.26.0.tar.gz \
+  && cd curl-7.26.0 \
+  && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath=/usr/local/openssl/lib \
+  && ./configure \
+    --with-ssl=/usr/local/openssl \
+    --with-zlib \
+    --prefix=/usr/local/curl \
+  && make \
+  && make install
 
 ## old libc-client
 
 RUN cd /tmp \
-    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
-    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
-    && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
-    && dpkg-source -x uw-imap_2007f\~dfsg-2.dsc imap-2007f \
-    && mv imap-2007f /usr/local/ \
-    && cd /usr/local/imap-2007f/ \
-    && touch {ipv6,lnxok} \
-    && make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
-    && mkdir lib include \
-    && cp c-client/*.c lib/ \
-    && cp c-client/*.h include/ \
-    && cp c-client/c-client.a lib/libc-client.a \
-    && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a
+  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.dsc \
+  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg.orig.tar.gz \
+  && wget http://http.debian.net/debian/pool/main/u/uw-imap/uw-imap_2007f\~dfsg-2.debian.tar.gz \
+  && dpkg-source -x uw-imap_2007f\~dfsg-2.dsc imap-2007f \
+  && mv imap-2007f /usr/local/ \
+  && cd /usr/local/imap-2007f/ \
+  && touch {ipv6,lnxok} \
+  && make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
+  && mkdir lib include \
+  && cp c-client/*.c lib/ \
+  && cp c-client/*.h include/ \
+  && cp c-client/c-client.a lib/libc-client.a \
+  && ln -s /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/libc-client.a
 
 RUN  wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
   && tar -xzf php.tar.gz \
