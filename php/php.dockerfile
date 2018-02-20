@@ -1,4 +1,4 @@
-FROM debian:whezzy
+FROM debian:wheezy
 MAINTAINER Stephane Mullings
 
 ENV PHP_RUN_DIR=/run/php \
