@@ -65,7 +65,7 @@ RUN cd /tmp/ \
     && mv imap-2007f /usr/local/ \
     && cd /usr/local/imap-2007f/ \
     && touch {ipv6,lnxok} \
-    &&&= make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
+    && make slx SSLINCLUDE=/usr/local/openssl/include/ SSLLIB=/usr/local/openssl/lib EXTRAAUTHENTICATORS=gss \
     && mkdir lib include \
     && cp c-client/*.c lib/ \
     && cp c-client/*.h include/ \
