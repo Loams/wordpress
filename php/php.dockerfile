@@ -62,7 +62,7 @@ RUN cd /opt \
 
 RUN  cd /opt \
   && env PHP_VER=5.4.45 \
-  && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php-${PHP_VER}.tar.gz \
+  && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php-5.4.45.tar.gz \
   && tar xzf php-${PHP_VER}.tar.gz \
   && cd php-${PHP_VER} \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php-${PHP_VER} '--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl'  '--with-kerberos'  '--with-libdir=lib/x86_64-linux-gnu' \
