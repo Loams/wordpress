@@ -76,64 +76,11 @@ RUN cd /tmp/ \
 RUN apt install -y g++ \
   && apt install -y gcc \
   && cd /tmp \
-  && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz\
+  && wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.gz \
   && tar -xzf php.tar.gz \
   && cd php-* \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" './configure'  --prefix=/usr/local/php'--with-zlib-dir' '--with-freetype-dir' '--enable-fpm' '--enable-mbstring' '--with-libxml-dir=/usr' '--enable-soap' '--enable-calendar' '--with-curl=/usr/local/curl' '--with-mcrypt' '--with-zlib' '--with-gd' '--disable-rpath' '--enable-inline-optimization' '--with-bz2' '--with-zlib' '--enable-sockets' '--enable-sysvsem' '--enable-sysvshm' '--enable-mbregex' '--with-mhash' '--enable-zip' '--with-pcre-regex' '--with-mysql' '--with-pdo-mysql' '--with-mysqli' '--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--enable-gd-native-ttf' '--enable-cgi' '--with-pear' '--enable-memcache' '--with-openssl=/usr/local/openssl' '--with-imap=/usr/local/imap-2007f' '--with-kerberos' '--with-imap-ssl' '--with-libdir=lib/x86_64-linux-gnu' \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
- # && ./configure \
-     --prefix=/usr/local/php \
-     --with-zlib-dir \
-     --with-freetype-dir \
-     --enable-cgi \
-     --enable-mbstring \
-     --with-libxml-dir=/usr \
-     --enable-soap \
-     --enable-calendar \
-     --with-curl \
-     --with-mcrypt \
-     --with-zlib \
-     --with-gd \
-     --disable-rpath \
-     --enable-inline-optimization \
-     --with-bz2 \
-     --with-zlib \
-     --enable-sockets \
-     --enable-sysvsem \
-     --enable-sysvshm \
-     --enable-pcntl \
-     --enable-mbregex \
-     --with-mhash \
-     --enable-zip \
-     --with-pcre-regex \
-     --with-mysql \
-     --with-pdo-mysql \
-     --with-mysqli \
-     --with-jpeg-dir=/usr \
-     --with-png-dir=/usr \
-     --enable-gd-native-ttf \
-     --with-openssl \
-     --with-libdir=lib64 \
-     --with-libxml-dir=/usr \
-     --enable-exif \
-     --enable-dba \
-     --with-gettext \
-     --enable-shmop \
-     --enable-sysvmsg \
-     --enable-wddx \
-     --with-imap \
-     --with-imap-ssl \
-     --with-kerberos \
-     --enable-bcmath \
-     --enable-ftp \
-     --enable-intl \
-     --with-pspell \
-     --enable-fpm \
-     --enable-embedded-mysqli \
-     --with-fpm-user=www-data \
-     --with-fpm-group=www-data \
-     --with-mysql-sock \
-  #&& make \
   && make install
 
   ENV LANG en_US.UTF-8
