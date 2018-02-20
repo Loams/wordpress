@@ -1,6 +1,7 @@
 version: '2'
 services:
   php:
+    container_name: leasyluxphp
     build:
       context: ./php
       dockerfile: php.dockerfile

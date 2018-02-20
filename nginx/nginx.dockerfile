@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM leasyluxphp
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
 
@@ -8,9 +8,7 @@ RUN	\
 	buildDeps='software-properties-common python-software-properties' \
 	&& apt-get update \
 	&& apt-get install --no-install-recommends -y $buildDeps \
-	&& add-apt-repository -y ppa:nginx/stable \
-	&& apt-get update \
-	&& apt-get install -y nginx \
+	&& apt-get install -y nginx=1.10.3 \
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
 	&& apt-get install -y supervisor && mkdir -p /var/log/supervisor \
