@@ -72,4 +72,3 @@ RUN  wget http://fr2.php.net/get/php-5.4.45.tar.gz/from/this/mirror -O php.tar.g
   && make install
 
 EXPOSE 9000
-CMD ["/usr/sbin/php5-fpm"]
