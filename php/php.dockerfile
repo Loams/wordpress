@@ -10,10 +10,10 @@ RUN apt-get update \
   && apt install -y locales \
   && apt install -y make \
   && locale-gen en_US.UTF-8 \
-  && apt build-dep php5
+  && apt build-dep php5 \
   && apt install -y libxslt1.1 libxslt1-dev \
   && apt install -y wget \
-  && apt install -y libfcgi-dev libfcgi0ldbl libjpeg62-dbg libmcrypt-dev libssl-dev \
+  && apt install -y libfcgi-dev libfcgi0ldbl libjpeg62-dbg libmcrypt-dev \
   && apt install -y curl \
   && apt install -y libgd-dev \
   && apt install -y g++ \
