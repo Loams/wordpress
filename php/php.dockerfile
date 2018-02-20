@@ -74,7 +74,7 @@ RUN  cd /opt \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
-COPY ./config/php-fpm.conf /usr/local/php-5.4.45/etc/php-fpm.conf
+COPY ./config/php-fpm.conf /etc/php5/fpm/pool.d/php-fpm.conf
 COPY ./config/php.ini ${PHP_CONF_DIR}/fpm/conf.d/custom.ini
 
 WORKDIR /var/www
