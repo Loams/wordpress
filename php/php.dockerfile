@@ -43,7 +43,7 @@ RUN cd /tmp \
   && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu
 
 ## compile old curl
-RUN $(pwd)
+RUN echo $(pwd)
 RUN cd /tmp \
     && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
     && tar -xzf curl-7.26.0.tar.gz \
