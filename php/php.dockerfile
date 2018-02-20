@@ -33,7 +33,7 @@ RUN apt-get update \
 
 ##compile old openssl
 
-RUN cd /opt/ \
+RUN cd /tmp/ \
   && wget https://www.openssl.org/source/old/1.0.1/openssl-1.0.1u.tar.gz \
   && tar xzf openssl-1.0.1u.tar.gz \
   && cd openssl-1.0.1u \
@@ -44,7 +44,7 @@ RUN cd /opt/ \
   && ln -s /usr/local/openssl/lib /usr/local/openssl/lib/x86_64-linux-gnu\
 
 ## compile old curl
-RUN cd /opt/ \
+RUN cd /tmp/ \
     && wget https://curl.haxx.se/download/curl-7.26.0.tar.gz \
     && tar xzf curl-7.26.0.tar.gz \
     && cd curl-7.26.0 \
