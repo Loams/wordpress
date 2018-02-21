@@ -5,7 +5,7 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/
 ENV NGINX_CONF_DIR=/etc/nginx
 
 RUN	\
-	buildDeps='software-properties-common python-software-properties' \
+	buildDeps='software-properties-common python3-software-properties' \
 	&& apt update \
 	&& apt install --no-install-recommends -y $buildDeps \
 	&& apt install -y nginx=1.10.3 \
