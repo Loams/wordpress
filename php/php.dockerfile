@@ -118,10 +118,14 @@ RUN wget http://ftp.us.debian.org/debian/pool/main/p/psmisc/psmisc_22.19-1+deb7u
 RUN wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-fpm_5.4.45-0+deb7u12_amd64.deb -O php-fpm_5.4.45.deb \
   && dpkg -i php-fpm_5.4.45.deb
 
-RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /etc/php5/php.ini \
-  && cp /opt/php-5.4/etc/php-fpm.conf.default /etc/php5/fpm/php-fpm.conf
+RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /etc/php5/php.ini
+#  && cp /opt/php-5.4/etc/php-fpm.conf.default /etc/php5/fpm/php-fpm.conf
 #  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /etc/php-fpm.d/www.conf
-# COPY ./config/www.conf /opt/php-5.4/etc/php-fpm.d/www.conf
+
+COPY ./config.php-fpm.conf /etc/php5/fpm/php-fpm.conf
+COPY ./config/www.conf /etc/php5/fpm/pool.d/www.conf
+COPY ./config/php.ini /etc/php5/fpm/conf.d/custom.ini
+
 # COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
 
 #RUN systemctl enable php5-fpm \
