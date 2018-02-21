@@ -17,6 +17,8 @@ services:
       - /root/docker:/root/docker/lib/data
     environment:
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
   nginx:
     build:
       context: ./nginx
