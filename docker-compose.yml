@@ -9,20 +9,23 @@ services:
     volumes:
       - /var/www:/var/www
     tty: true
-  #db:
-  #  build:
-  #    context: ./mariadb
-  #    dockerfile: mariadb.dockerfile
-  #  working_dir: /root/docker
-  #  volumes:
-  #    - /root/docker:/root/docker/lib/data
-  #  tty: true
+    links:
+      - db
+  db:
+    image: mariadb:10.1
+    volumes:
+      - /root/docker:/root/docker/lib/data
+    environment:
+      MYSQL_ROOT_PASSWORD: root
   nginx:
     build:
       context: ./nginx
       dockerfile: nginx.dockerfile
     volumes:
       - /var/www:/var/www
+    ports:
+      - "80:80"
+      - "443:443"
     links:
-     # - db
+      - db
       - php

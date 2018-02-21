@@ -1,31 +1,32 @@
-FROM leasyluxphp
+FROM docker_php
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
 
 ENV NGINX_CONF_DIR=/etc/nginx
 
-RUN	\
-	buildDeps='software-properties-common python-software-properties' \
-	&& apt-get update \
-	&& apt-get install --no-install-recommends -y $buildDeps \
-	&& apt-get install -y nginx \
+RUN	apt update \
+	&& apt install -y nginx\
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
-	&& apt-get install -y supervisor && mkdir -p /var/log/supervisor \
-	&& chown www-data:www-data /var/www/app/ -Rf \
+	&& apt install -y supervisor \
+	&& mkdir -p /var/log/supervisor \
+	&& chown www-data:www-data /var/www/ -Rf \
 	# Cleaning
-	&& apt-get purge -y --auto-remove $buildDeps \
-	&& apt-get autoremove -y && apt-get clean \
+	&& apt autoremove -y \
+	&& apt clean \
 	&& rm -rf /var/lib/apt/lists/* \
 	# Forward request and error logs to docker log collector
-	&& ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
+	&& ln -sf /dev/stdout /var/log/nginx/wordpress.lan-access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/wordpress.lan-error.log;
 
 COPY ./config/nginx.conf ${NGINX_CONF_DIR}/nginx.conf
 COPY ./config/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
 COPY ./config/www.conf /etc/php5/fpm/pool.d/www.conf
 
-WORKDIR /var/www/leasylux/
+COPY ./certs/leasyluxe.local.crt /etc/nginx/certs/leasyluxe.local.crt
+COPY ./certs/leasyluxe.local.key /etc/nginx/certs/leasyluxe.local.key
+
+WORKDIR /var/www/
 
 EXPOSE 80 443
 
