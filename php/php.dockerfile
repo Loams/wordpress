@@ -2,9 +2,9 @@ FROM debian:stretch
 
 MAINTAINER Stephane Mullings
 
-ENV PHP_RUN_DIR=/opt/php-5.4/var/run \
+ENV PHP_RUN_DIR=/run/php \
     PHP_LOG_DIR=/var/log/php \
-    PHP_CONF_DIR=/opt/php-5.4/etc \
+    PHP_CONF_DIR=/etc/php5 \
     PHP_DATA_DIR=/var/lib/php5
 
 RUN apt-get update \
@@ -120,7 +120,7 @@ RUN wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php
 
 RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /etc/php5/php.ini \
   && cp /opt/php-5.4/etc/php-fpm.conf.default /etc/php5/fpm/php-fpm.conf
-#  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
+#  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /etc/php-fpm.d/www.conf
 # COPY ./config/www.conf /opt/php-5.4/etc/php-fpm.d/www.conf
 # COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
 
@@ -134,4 +134,4 @@ EXPOSE 9000
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
 
-ENTRYPOINT ['/usr/sbin/php5-fpm']
+CMD ['/usr/sbin/php5-fpm']
