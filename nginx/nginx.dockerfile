@@ -4,10 +4,7 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/
 
 ENV NGINX_CONF_DIR=/etc/nginx
 
-RUN	\
-	buildDeps='software-properties-common python3-software-properties' \
-	&& apt update \
-	&& apt install --no-install-recommends -y $buildDeps \
+RUN	apt update \
 	&& apt install -y nginx\
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
@@ -15,7 +12,6 @@ RUN	\
 	&& mkdir -p /var/log/supervisor \
 	&& chown www-data:www-data /var/www/ -Rf \
 	# Cleaning
-	&& apt purge -y --auto-remove $buildDeps \
 	&& apt autoremove -y \
 	&& apt clean \
 	&& rm -rf /var/lib/apt/lists/* \
