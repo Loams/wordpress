@@ -32,6 +32,6 @@ services:
       - db:db
       - php:php
   adminer:
-      image: adminer
-      ports:
-        - 10080:8080
+    image: adminer
+    ports:
+      - 10080:8080
