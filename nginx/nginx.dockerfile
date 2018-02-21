@@ -1,4 +1,4 @@
-FROM leasyluxphp
+FROM docker_php
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
 
@@ -16,8 +16,8 @@ RUN	apt update \
 	&& apt clean \
 	&& rm -rf /var/lib/apt/lists/* \
 	# Forward request and error logs to docker log collector
-	&& ln -sf /dev/stdout /var/log/nginx/access.log \
-	&& ln -sf /dev/stderr /var/log/nginx/error.log
+	&& ln -sf /dev/stdout /var/log/nginx/wordpress.lan-access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/wordpress.lan-error.log;
 
 COPY ./config/nginx.conf ${NGINX_CONF_DIR}/nginx.conf
 COPY ./config/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
