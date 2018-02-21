@@ -81,7 +81,7 @@ RUN mkdir -p /usr/local/src/php-fpm5.4 \
   && wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-fpm_5.4.45-0+deb7u12_amd64.deb -O php-fpm_5.4.45.deb \
   && dpkg -i php-fpm_5.4.45.deb
 
-RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini \
+RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini
 #  && cp /opt/php-5.4/etc/php-fpm.conf.default /opt/php-5.4/etc/php-fpm.conf
 #  && cp /opt/php-5.4/etc/php-fpm.d/www.conf.default /opt/php-5.4/etc/php-fpm.d/www.conf
 # COPY ./config/www.conf /opt/php-5.4/etc/php-fpm.d/www.conf
