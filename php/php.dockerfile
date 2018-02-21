@@ -110,7 +110,7 @@ RUN wget http://ftp.us.debian.org/debian/pool/main/p/psmisc/psmisc_22.19-1+deb7u
   && wget http://ftp.us.debian.org/debian/pool/main/l/lsof/lsof_4.86+dfsg-1_amd64.deb -O lsof.deb \
   && wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-common_5.4.45-0+deb7u12_amd64.deb -O php5-common.deb \
   && dpkg -i psmisc.deb \
-  && dpkg -i bperl4-corelibs-perl.deb \
+  && dpkg -i libperl4-corelibs-perl.deb \
   && dpkg -i lsof.deb \
   && dpkg -i php5-common.deb
 
