@@ -106,9 +106,11 @@ RUN wget http://ftp.us.debian.org/debian/pool/main/u/ucf/ucf_3.0025+nmu3_all.deb
 
 # install php5-common dependency
 RUN wget http://ftp.us.debian.org/debian/pool/main/p/psmisc/psmisc_22.19-1+deb7u1_amd64.deb -O psmisc.deb \
+  && wget http://ftp.us.debian.org/debian/pool/main/libp/libperl4-corelibs-perl/libperl4-corelibs-perl_0.003-1_all.deb -O libperl4-corelibs-perl.deb \
   && wget http://ftp.us.debian.org/debian/pool/main/l/lsof/lsof_4.86+dfsg-1_amd64.deb -O lsof.deb \
   && wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-common_5.4.45-0+deb7u12_amd64.deb -O php5-common.deb \
   && dpkg -i psmisc.deb \
+  && dpkg -i bperl4-corelibs-perl.deb \
   && dpkg -i lsof.deb \
   && dpkg -i php5-common.deb
 
