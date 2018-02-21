@@ -14,7 +14,7 @@ services:
   db:
     image: mariadb:10.1
     volumes:
-      - /root/docker:/root/docker/lib/data
+      - /root/docker/lib/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
@@ -31,3 +31,7 @@ services:
     links:
       - db
       - php
+  adminer:
+      image: adminer
+      ports:
+        - 10080:8080
