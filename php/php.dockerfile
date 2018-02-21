@@ -13,6 +13,7 @@ RUN apt-get update \
                     zip \
                     autoconf \
                     sed \
+
   && apt install -y libfcgi-dev \
                     libfcgi0ldbl \
                     libmcrypt-dev \
@@ -20,7 +21,6 @@ RUN apt-get update \
                     libc-client2007e-dev \
                     libkrb5-dev \
                     libcurl4-openssl-dev \
-
   && apt install -y libxml2-dev \
                     libcurl4-openssl-dev \
                     libpcre3-dev \
@@ -77,8 +77,25 @@ RUN mkdir -p /opt/php-5.4 \
   && LDFLAGS="-Wl,-rpath=/usr/local/openssl/lib,-rpath=/usr/local/curl/lib" make \
   && make install
 
+# install php-fpm dependency
 RUN mkdir -p /usr/local/src/php-fpm5.4 \
-  && wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-fpm_5.4.45-0+deb7u12_amd64.deb -O php-fpm_5.4.45.deb \
+  && wget http://security.debian.org/debian-security/pool/updates/main/d/db/libdb5.1_5.1.29-5+deb7u1_amd64.deb -O libdb5.1.deb \
+  && wget http://security.debian.org/debian-security/pool/updates/main/libo/libonig/libonig2_5.9.1-1+deb7u1_amd64.deb -O libonig2_5.9.1.deb \
+  && wget http://ftp.us.debian.org/debian/pool/main/q/qdbm/libqdbm14_1.8.78-2_amd64.deb -O libqdbm14.deb \
+  && wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb7u3_amd64.deb -O libssl1.0.0.deb \
+  && wget http://ftp.us.debian.org/debian/pool/main/m/mime-support/mime-support_3.52-1+deb7u1_all.deb -O mime-support.deb \
+  && wget http://ftp.us.debian.org/debian/pool/main/u/ucf/ucf_3.0025+nmu3_all.deb -O ucf.deb \
+  && wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-common_5.4.45-0+deb7u12_amd64.deb -O php5-common.deb \
+  && dpkg -i libdb5.1.deb \
+  && dpkg -i libonig2_5.9.1.deb \
+  && dpkg -i libqdbm14.deb \
+  && dpkg -i libssl1.0.0.deb \
+  && dpkg -i mime-support.deb \
+  && dpkg -i ucf.deb \
+  && dpkg -i php5-common.deb
+
+# install php-fpm
+RUN wget http://security.debian.org/debian-security/pool/updates/main/p/php5/php5-fpm_5.4.45-0+deb7u12_amd64.deb -O php-fpm_5.4.45.deb \
   && dpkg -i php-fpm_5.4.45.deb
 
 RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /opt/php-5.4/lib/php.ini
