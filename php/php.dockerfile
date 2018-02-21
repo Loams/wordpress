@@ -134,4 +134,4 @@ EXPOSE 9000
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
 
-RUN /etc/init.d/php5-fpm start
+CMD ["/usr/sbin/php5-fpm"]
