@@ -59,7 +59,7 @@ RUN cd /opt \
   && ls -al \
   && cd curl \
   && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath-link=/usr/local/openssl/lib \
-  && ./configure \y
+  && ./configure \
     --with-ssl=/usr/local/openssl/lib \
     --with-zlib \
     --prefix=/usr/local/curl \
