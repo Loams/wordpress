@@ -124,8 +124,8 @@ RUN cp /usr/local/src/php5.4-build/php-5.4.45/php.ini-production /etc/php5/php.i
 # COPY ./config/www.conf /opt/php-5.4/etc/php-fpm.d/www.conf
 # COPY ./config/php-5.4-fpm.service /lib/sytemd/system/php-fpm
 
-RUN systemctl enable php5-fpm \
-  && systemctl daemon-reload
+#RUN systemctl enable php5-fpm \
+#  && systemctl daemon-reload
 
 WORKDIR /var/www
 
