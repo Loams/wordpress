@@ -59,7 +59,7 @@ RUN cd /opt \
   && ls -al \
   && cd curl \
   && env PKG_CONFIG_PATH=/usr/local/openssl/lib/pkgconfig LDFLAGS=-Wl,-rpath-link=/usr/local/openssl/lib \
-  && ./configure \
+  && ./configure \y
     --with-ssl=/usr/local/openssl/lib \
     --with-zlib \
     --prefix=/usr/local/curl \
@@ -134,4 +134,4 @@ EXPOSE 9000
 # PHP_DATA_DIR store sessions
 VOLUME ["${PHP_RUN_DIR}", "${PHP_DATA_DIR}"]
 
-CMD ['/usr/sbin/php5-fpm']
+#CMD ['/usr/sbin/php5-fpm']
