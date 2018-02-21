@@ -8,7 +8,7 @@ RUN	\
 	buildDeps='software-properties-common python3-software-properties' \
 	&& apt update \
 	&& apt install --no-install-recommends -y $buildDeps \
-	&& apt install -y nginx=1.10.3 \
+	&& apt install -y nginx\
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
 	&& apt install -y supervisor \
