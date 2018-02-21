@@ -10,7 +10,7 @@ services:
       - /var/www:/var/www
     tty: true
     links:
-      - db
+      - db:db
   db:
     image: mariadb:10.1
     volumes:
@@ -29,8 +29,8 @@ services:
       - "80:80"
       - "443:443"
     links:
-      - db
-      - php
+      - db:db
+      - php:php
   adminer:
       image: adminer
       ports:
