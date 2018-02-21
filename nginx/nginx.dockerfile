@@ -23,6 +23,9 @@ COPY ./config/nginx.conf ${NGINX_CONF_DIR}/nginx.conf
 COPY ./config/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
 COPY ./config/www.conf /etc/php5/fpm/pool.d/www.conf
 
+COPY ./certs/leasyluxe.local.crt /etc/nginx/certs/leasyluxe.local.crt
+COPY ./certs/leasyluxe.local.key /etc/nginx/certs/leasyluxe.local.key
+
 WORKDIR /var/www/
 
 EXPOSE 80 443
