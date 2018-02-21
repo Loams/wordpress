@@ -13,7 +13,7 @@ RUN	\
 	# Install supervisor
 	&& apt install -y supervisor \
 	&& mkdir -p /var/log/supervisor \
-	&& chown www-data:www-data /var/www/app/ -Rf \
+	&& chown www-data:www-data /var/www/ -Rf \
 	# Cleaning
 	&& apt purge -y --auto-remove $buildDeps \
 	&& apt autoremove -y \
@@ -27,7 +27,7 @@ COPY ./config/nginx.conf ${NGINX_CONF_DIR}/nginx.conf
 COPY ./config/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
 COPY ./config/www.conf /etc/php5/fpm/pool.d/www.conf
 
-WORKDIR /var/www/leasylux/
+WORKDIR /var/www/
 
 EXPOSE 80 443
 
