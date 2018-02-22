@@ -1,37 +1,52 @@
 version: '2'
 services:
   php:
-    container_name: leasyluxphp
+    container_name: php
     build:
       context: ./php
       dockerfile: php.dockerfile
+    image: leasyluxe_php:latest
     working_dir: /var/www
-    volumes:
-      - /var/www:/var/www
-    tty: true
     links:
-      - db:db
+          - db:db
+          - redis:redis
+    volumes:
+      - /home/stephane/Projects/leasyluxe:/var/www
+    tty: true
   db:
+    container_name: mariadb
     image: mariadb:10.1
     volumes:
       - /root/docker/lib/data:/var/lib/mysql
+      - /home/stephane/Projects/leasyluxe:/var/tmp
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
   nginx:
+    container_name: nginx
     build:
       context: ./nginx
       dockerfile: nginx.dockerfile
+    image: leasyluxe_nginx:latest
     volumes:
-      - /var/www:/var/www
+      - /home/stephane/Projects/leasyluxe:/var/www
     ports:
       - "80:80"
       - "443:443"
     links:
-      - db:db
       - php:php
-  adminer:
-    image: adminer
+  redis:
+    container_name: redis
+    image: redis
     ports:
-      - 10080:8080
+      - "6379:6379"
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 10080:80
+    links:
+      - db:db
+    environment:
+      PMA_HOST: mariadb
