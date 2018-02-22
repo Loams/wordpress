@@ -1,4 +1,4 @@
-FROM docker_php
+FROM leasyluxe_php
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
 
